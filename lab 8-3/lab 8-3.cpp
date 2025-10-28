@@ -4,15 +4,17 @@ using namespace std;
 
 int romanCharValue(char r);
 
+int convertRomanToInt(string s);
+
 int main() {
-	char number;
+	string number;
 	cout << "Enter a roman numeral: ";
 	cin >> number;
 
-	cout << "Numerical value: " << romanCharValue(number);
+	cout << "Numerical value: " << convertRomanToInt(number);
 }
 int romanCharValue(char r) {
-	int value;
+	int value = 0;
 	if (r == 'i' || r == 'I') {
 		value = 1;
 	}
@@ -36,4 +38,23 @@ int romanCharValue(char r) {
 	}
 
 	return value;
+}
+int convertRomanToInt(string s) {
+	int total = 0;
+	
+	for (int i = 0; i < size(s); i++) {
+		if (romanCharValue(s[i]) >= romanCharValue(s[i + 1]) || size(s) == 1) {
+			total = total + romanCharValue(s[i]);
+
+			
+		}
+		else {
+			total = total + (romanCharValue(s[i + 1]) - romanCharValue(s[i]));
+			
+			s.erase(i, 1);
+		}
+
+	}
+
+	return total;
 }
